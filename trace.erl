@@ -4,14 +4,14 @@
 %import this module and compile your module with : c(mymodule,{d,{traceon,true}}) to enable trace
 
 -ifdef(traceon).
-	traceFlag() -> true.
+traceFlag() -> true.
 -else.
-	traceFlag() -> false.
+traceFlag() -> false.
 -endif.
 
 
 trace(Format,List) ->
-case traceFlag() of
- true->io:format(Format,List);
- false->void
-end.
+	case traceFlag() of
+		true->io:format(Format,List);
+		false->void
+	end.

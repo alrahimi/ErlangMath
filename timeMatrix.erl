@@ -2,7 +2,8 @@
 
 -export([testmm/2,testmmcr/2 ,testmmpmap/3,testmorgana/2,test_echelon/2]).
 -import(timestat,[timeit/4]).
--import(matrixMorgana,[sequential/2]).
+%-import(matrixGen,[sequential/2]).
+-import(matrixGen,[matrixGen/2]).
 -import(matrix,[multmbym/2]).
 -import(matrix,[multmbymCR/2]).
 -import(gauss,[echelon/1]).
@@ -19,9 +20,9 @@
 %this is for 1000000000 integer multiplication or 0.093148 microseconds per integer multiplications.
 
 testmm(Dim,Ntests)->
-M1=matrixMorgana:sequential(Dim,Dim),
-M2=M1,
-timestat:timeit(matrix,multmbym,[M1,M2],Ntests).
+	M1=matrixGen:sequential(Dim,Dim),
+	M2=M1,
+	timestat:timeit(matrix,multmbym,[M1,M2],Ntests).
 
 
 %sample output
@@ -33,14 +34,14 @@ timestat:timeit(matrix,multmbym,[M1,M2],Ntests).
 %        eheap_alloc: Cannot allocate 1373343080 bytes of memory (of type "heap").
 
 testmmcr(Dim,Ntests)->
-M1=matrixMorgana:sequential(Dim,Dim),
-M2=M1,
-timestat:timeit(matrix,multmbymCR,[M1,M2],Ntests).
+	M1=matrixGen:sequential(Dim,Dim),
+	M2=M1,
+	timestat:timeit(matrix,multmbymCR,[M1,M2],Ntests).
 
 testmmpmap(Dim,MaxProc,Ntests)->
-M1=matrixMorgana:sequential(Dim,Dim),
-M2=M1,
-timestat:timeit(matrix,multmbympmap,[M1,M2,MaxProc],Ntests).
+	M1=matrixGen:sequential(Dim,Dim),
+	M2=M1,
+	timestat:timeit(matrix,multmbympmap,[M1,M2,MaxProc],Ntests).
 
 
 %times go up exponentialy? 2**4 from 100 to 200
@@ -52,12 +53,12 @@ timestat:timeit(matrix,multmbympmap,[M1,M2,MaxProc],Ntests).
 %Total wall_clock_Time=80668000 microseconds
 %ok
 testmorgana(Dim,Ntests)->
-M1=matrixMorgana:sequential(Dim,Dim),
-M2=M1,
-timestat:timeit(matrixMorgana,multiply,[M1,M2],Ntests).
+	M1=matrixGen:sequential(Dim,Dim),
+	M2=M1,
+	timestat:timeit(matrixGen,multiply,[M1,M2],Ntests).
 
 %row echelon form
 
 test_echelon(Dim,Ntests)->
-M=matrixMorgana:sequential(Dim,Dim),
-timestat:timeit(gauss,echelon,[M],Ntests).
+	M=matrixGen:sequential(Dim,Dim),
+	timestat:timeit(gauss,echelon,[M],Ntests).
